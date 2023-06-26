@@ -1,3 +1,5 @@
+using System.Reflection;
+using HomeApi.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +23,8 @@ namespace HomeApi
 			services.Configure<HomeOptions>(Configuration);
 
 			services.AddControllers();
+			var assembly = Assembly.GetAssembly(typeof(MappingProfile));
+			services.AddAutoMapper(assembly);
 			services.AddSwaggerGen(c =>
 			{
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "HomeApi", Version = "v1" });
