@@ -36,16 +36,12 @@ namespace HomeApi.Controllers
 		/// Добавление нового устройства
 		/// </summary>
 		[HttpPost]
-		[Route("Add")]
+		[Route("")]
 		public IActionResult Add(
 			[FromBody]
 			AddDeviceRequest request
 		)
 		{
-			if (request.CurrentVolts < 120) {
-				ModelState.AddModelError("currentVolts", "We only support devices starting from 120 volts!");
-				return BadRequest(ModelState);
-			}
 			return StatusCode(200, $"Device {request.Name} added!");
 		}
 	}
