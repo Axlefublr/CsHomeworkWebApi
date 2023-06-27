@@ -1,5 +1,8 @@
-namespace HomeApi.Configuration
+﻿namespace HomeApi.Configuration
 {
+	/// <summary>
+	/// Информация о нашем доме
+	/// </summary>
 	public class HomeOptions
 	{
 		public int FloorAmount { get; set; }

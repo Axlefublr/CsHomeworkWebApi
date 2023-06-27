@@ -1,5 +1,8 @@
-namespace HomeApi.Configuration
+﻿namespace HomeApi.Configuration
 {
+	/// <summary>
+	/// Адрес дома 
+	/// </summary>
 	public class Address
 	{
 		public int House { get; set; }
