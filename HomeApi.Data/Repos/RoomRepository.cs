@@ -11,12 +11,12 @@ namespace HomeApi.Data.Repos
 	public class RoomRepository : IRoomRepository
 	{
 		private readonly HomeApiContext _context;
-		
+
 		public RoomRepository (HomeApiContext context)
 		{
 			_context = context;
 		}
-		
+
 		/// <summary>
 		///  Найти комнату по имени
 		/// </summary>
@@ -24,7 +24,7 @@ namespace HomeApi.Data.Repos
 		{
 			return await _context.Rooms.Where(r => r.Name == name).FirstOrDefaultAsync();
 		}
-		
+
 		/// <summary>
 		///  Добавить новую комнату
 		/// </summary>
@@ -33,7 +33,19 @@ namespace HomeApi.Data.Repos
 			var entry = _context.Entry(room);
 			if (entry.State == EntityState.Detached)
 				await _context.Rooms.AddAsync(room);
-			
+
+			await _context.SaveChangesAsync();
+		}
+
+		public async Task ReplaceRoom(Room existingRoom, Room newRoom) {
+			var room = await _context.Rooms.FindAsync(existingRoom.Id);
+			if (room == null) {
+				return;
+			}
+			existingRoom.Name = newRoom.Name;
+			existingRoom.Area = newRoom.Area;
+			existingRoom.GasConnected = newRoom.GasConnected;
+			existingRoom.Voltage = newRoom.Voltage;
 			await _context.SaveChangesAsync();
 		}
 	}
